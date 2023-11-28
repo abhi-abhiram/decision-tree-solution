@@ -1,18 +1,4 @@
-from typing import Union
-from solution import getSolutionContext
-from solution import llm_chain
+import uvicorn
 
-from fastapi import FastAPI
-
-app = FastAPI()
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/solution")
-def solution_for_incident(query: str, company: str):
-    context = getSolutionContext()
-    return llm_chain.run(context=context, query=query, company=company)
+if __name__ == "__main__":
+    uvicorn.run("server.api:app", host="0.0.0.0", port=8000, reload=True)
